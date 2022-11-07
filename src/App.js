@@ -49,23 +49,28 @@ function App() {
   })
 
 
+  const formik = useFormik({
+    initialValues: {
+      text: "",
+      title: "",
+    },
+    validationSchema:yup.object({
+      title: yup
+        .string('Enter title')
+        .required('Title is required'),
+      
+        password: yup
+        .string('Enter your password')
+        .min(8, 'Password should be of minimum 8 characters length')
+        .required('Password is required'),
+    });,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+
   useEffect(() => {
-    //getting data without using realtime function start
-    //     const getData=async()=>{
-    //     const querySnapshot = await getDocs(collection(db, "posts"));
-    //     querySnapshot.forEach((doc) => {
-    //     console.log(`${doc.id} =>`, doc.data());
-
-    //      setPosts((prev)=>{
-
-    //       let newArr=[...prev,doc.data()];
-    //       return newArr;
-    //      })
-
-    // });
-    // }
-    //   getData();
-    //getting data without using realtime function end
 
     let unsubscribe = null;
     const getRealtimeData = async () => {
